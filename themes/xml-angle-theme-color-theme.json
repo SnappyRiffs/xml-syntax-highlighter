@@ -1,0 +1,13 @@
+{
+  "name": "XML Angle Theme",
+  "type": "dark",
+  "colors": {},
+  "tokenColors": [
+    {
+      "scope": "angle.bracket.xml",
+      "settings": {
+        "foreground": "#ffff00"
+      }
+    }
+  ]
+}

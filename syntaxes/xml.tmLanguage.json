@@ -1,9 +1,0 @@
-{
-  "scopeName": "text.xml",
-  "patterns": [
-    {
-      "name": "angle.bracket.xml",
-      "match": "[<>]"
-    }
-  ]
-}

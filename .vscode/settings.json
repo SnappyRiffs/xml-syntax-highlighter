@@ -1,0 +1,12 @@
+{
+  "editor.semanticTokenColorCustomizations": {
+    "rules": {
+      "xmlAngleOdd": {
+        "foreground": "#FFD700"
+      },
+      "xmlAngleEven": {
+        "foreground": "#FF5555"
+      }
+    }
+  }
+}

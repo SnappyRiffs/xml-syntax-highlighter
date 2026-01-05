@@ -12,22 +12,20 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "grammars": [
+    "semanticTokenScopes": [
       {
         "language": "xml",
-        "scopeName": "text.xml",
-        "path": "./syntaxes/xml.tmLanguage.json"
-      }
-    ],
-    "themes": [
-      {
-        "label": "XML Angle Theme",
-        "uiTheme": "vs-dark",
-        "path": "./themes/xml-angle-theme-color-theme.json"
+        "scopes": {
+          "xmlAngleOdd": [
+            "punctuation.definition.tag"
+          ],
+          "xmlAngleEven": [
+            "punctuation.definition.tag"
+          ]
+        }
       }
     ]
   },
-
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",

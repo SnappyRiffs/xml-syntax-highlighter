@@ -1,36 +1,63 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-const vscode = require('vscode');
+const vscode = require("vscode");
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+const tokenTypes = ["xmlAngleOdd", "xmlAngleEven"];
+const legend = new vscode.SemanticTokensLegend(tokenTypes, []);
 
-/**
- * @param {vscode.ExtensionContext} context
- */
 function activate(context) {
+  const provider = {
+    provideDocumentSemanticTokens(document) {
+      const builder = new vscode.SemanticTokensBuilder(legend);
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "xml-syntax-highlighter" is now active!');
+      const text = document.getText();
+      let depth = 0;
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('xml-syntax-highlighter.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from XML syntax highlighter!');
-	});
+        if (char === "<") {
+          const pos = document.positionAt(i);
+          depth++;
 
-	context.subscriptions.push(disposable);
+          builder.push(
+            pos.line,
+            pos.character,
+            1,
+            depth % 2 === 1 ? 0 : 1,
+            0
+          );
+        }
+
+        if (char === ">") {
+          const pos = document.positionAt(i);
+
+          builder.push(
+            pos.line,
+            pos.character,
+            1,
+            depth % 2 === 1 ? 0 : 1,
+            0
+          );
+
+          depth = Math.max(depth - 1, 0);
+        }
+      }
+
+      return builder.build();
+    }
+  };
+
+  context.subscriptions.push(
+    vscode.languages.registerDocumentSemanticTokensProvider(
+      { language: "xml" },
+      provider,
+      legend
+    )
+  );
 }
 
-// This method is called when your extension is deactivated
 function deactivate() {}
 
 module.exports = {
-	activate,
-	deactivate
-}
+  activate,
+  deactivate
+};

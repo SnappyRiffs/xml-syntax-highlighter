@@ -2,10 +2,10 @@
   "editor.semanticTokenColorCustomizations": {
     "rules": {
       "xmlAngleOdd": {
-        "foreground": "#FFD700"
+        "foreground": "#000000"
       },
       "xmlAngleEven": {
-        "foreground": "#FF5555"
+        "foreground": "#ffffff"
       }
     }
   }
